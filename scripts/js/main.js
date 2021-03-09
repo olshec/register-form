@@ -38,13 +38,6 @@ function afterPageLoad() {
             event.preventDefault();
             sendQuery();
     });
-    //let btn = document.getElementById('register-btn');
-/*    btn.addEventListener("click", function(e) {
-	    e.preventDefault();
-		
-		
-	    //addJobExperience();
-    }, false);*/
 }
 
 afterPageLoad();

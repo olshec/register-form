@@ -1,5 +1,12 @@
 <?php 
 session_start();
 
-echo 'Welcome to page #1';
+// get the q parameter from URL
+$login = $_REQUEST["login"];
+$email = $_REQUEST["email"];
+$password = $_REQUEST["psw"];
+
+echo $login;
+
+
 ?>

@@ -18,10 +18,19 @@ $password = $_REQUEST["psw"];
 
 $myObj = new ResultModel($login, $email, $password);
 $myObj->setError(false);
+$myObj->setTextMessage('Register succesfull!');
 
 try {
-    $dao = new DAO();
+    $dao = new DAO("localhost", 'postgres', '1111');
+    $dao->setDatabase('db5');
     $pdo = $dao->getPDO();
+    
+/*     echo $dao->getUsername();
+    echo $dao->getServername();
+    echo $dao->getPassword();
+    echo $dao->getDatabase();
+    exit(); */
+    
     $stmt = $pdo->query('SELECT name, email FROM users');
     while ($row = $stmt->fetch())
     {
@@ -29,14 +38,16 @@ try {
         if ($row['name'] == $login) {
             $myObj->setError(true);
             $myObj->setTextError('This name already exists');
-        } else if ($row['email'] == $email) {
+        } 
+        if ($row['email'] == $email) {
             $myObj->setError(true);
             $myObj->setTextError('This email already exists');
         }
     }
     
 } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    $myObj->setError(true);
+    $myObj->setTextError("Connection failed: " . $e->getMessage());
 }
 
 $myJSON = json_encode($myObj);

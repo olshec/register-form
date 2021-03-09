@@ -9,6 +9,7 @@ class ResultModel
     public $password;
     public $error;
     public $textError;
+    public $textMesage;
 
     function __construct($login, $email, $password)
     {
@@ -24,6 +25,14 @@ class ResultModel
     public function getTextError()
     {
         return $this->textError;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getTextMesage()
+    {
+        return $this->textMesage;
     }
     
     /**
@@ -56,6 +65,14 @@ class ResultModel
     public function getPassword()
     {
         return $this->password;
+    }
+    
+    /**
+     * @param mixed $textMesage
+     */
+    public function setTextMessage($textMesage)
+    {
+        $this->textMesage = $textMesage;
     }
     
     /**

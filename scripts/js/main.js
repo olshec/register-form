@@ -8,7 +8,7 @@ function showResultRegister(responseText) {
         
         //document.getElementById('main-container')
         //document.body.innerHTML = "Register succesfull!<br>";
-        resultQuery.innerText = "Register succesfull!";
+        resultQuery.innerText = response.textMesage;
         //resultQuery.appendChild(node);
     }
 }

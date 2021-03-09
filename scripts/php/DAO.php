@@ -11,17 +11,16 @@ class DAO
     private $password;
     private $database;
     
-    function __construct($servername, $username, $password) {
+    function __construct($servername, $username, $password, $dbname) {
         $this->setServername($servername);
         $this->setUsername($username);
         $this->setPassword($password);
+        $this->setDatabase($dbname);
     }
     
     public function getPDO():PDO {
-        echo $this->getUsername();
-        echo $this->getPassword();
         $pdo = new PDO("pgsql:host=$this->servername;dbname=$this->database", 
-            $this->username, $this->password);
+            $this->getUsername(), $this->getPassword());
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
     }
@@ -87,7 +86,7 @@ class DAO
      */
     public function setDatabase($database)
     {
-        $this->$database = $database;
+        $this->database = $database;
     }
 }
 

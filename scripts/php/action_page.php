@@ -21,20 +21,12 @@ $myObj->setError(false);
 $myObj->setTextMessage('Register succesfull!');
 
 try {
-    $dao = new DAO("localhost", 'postgres', '1111');
-    $dao->setDatabase('db5');
+    $dao = new DAO("localhost", 'postgres', '1111', 'db5');
     $pdo = $dao->getPDO();
-    
-/*     echo $dao->getUsername();
-    echo $dao->getServername();
-    echo $dao->getPassword();
-    echo $dao->getDatabase();
-    exit(); */
     
     $stmt = $pdo->query('SELECT name, email FROM users');
     while ($row = $stmt->fetch())
     {
-        //echo $row['name'] . "\n";
         if ($row['name'] == $login) {
             $myObj->setError(true);
             $myObj->setTextError('This name already exists');

@@ -10,6 +10,8 @@ function showResultRegister(responseText) {
         //document.body.innerHTML = "Register succesfull!<br>";
         resultQuery.innerText = response.textMesage;
         //resultQuery.appendChild(node);
+    } else {
+        
     }
 }
 

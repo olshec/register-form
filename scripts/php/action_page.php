@@ -17,16 +17,28 @@ $typeForm = $_REQUEST["type-form"];
 $myObj = new ResultModel();
 $myObj->setHasError(false);
 
-if(strlen($password)<6) {
+if(strlen($password) < 6 || !preg_match("/^[a-zA-Z0-9]*$/",$password)) {
     $myObj->setHasError(true);
     $myObj->addError('The password is not in the correct format', 'login');
     $myJSON = json_encode($myObj);
     echo $myJSON;
     exit();
-}
-
+} else if (strlen($login) < 5 || !preg_match("/^[a-zA-Z0-9]*$/",$login)) {
+    $myObj->setHasError(true);
+    $myObj->addError('The login is not in the correct format', 'login');
+    $myJSON = json_encode($myObj);
+    echo $myJSON;
+    exit();
+} 
 if($typeForm == 'register') {
     $email = $_REQUEST["email"];
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $myObj->setHasError(true);
+        $myObj->addError('The email is not in the correct format', 'email');
+        $myJSON = json_encode($myObj);
+        echo $myJSON;
+        exit();
+    }
     try {
         $dao = new DAO("localhost", 'postgres', '1111', 'db5');
         $pdo = $dao->getPDO();

@@ -14,9 +14,11 @@
 		<p id="form-header">Please fill in this form to create an account.</p>
 		<hr>
 		
-		<label for="email" id="label-email"><b>Email</b></label>
-		<input type="text" placeholder="Enter Email" name="email" id="email" required>
-		<div id="error-email"></div>
+		<div id="email-block">
+			<label for="email" id="label-email"><b>Email</b></label>
+	        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+	        <div id="error-email"></div>
+		</div>
 		
 		<label for="login"><b>Login</b></label>
 		<input type="text" placeholder="Enter Login" name="login" id="login" autofocus required pattern="[a-zA-Z\d]{5,20}">
@@ -36,7 +38,7 @@
 	<div class="container signin" id="link-sign-in">
 		<p>Already have an account? <a href="#">Sign in</a></p>
 	</div>
-	<div class="container register" id="link-register" hidden>
+	<div class="container register" id="link-register" hidden="true">
         <p>Haven't an account? <a href="#">Register</a></p>
     </div>
 </form>

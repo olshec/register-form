@@ -1,9 +1,8 @@
 
 function transformFormToSignIn() {
     document.getElementById('type-form').setAttribute('type-form','sign-in');
-    let em = document.getElementById('email');
-    document.getElementById('email').hidden = true;
-    document.getElementById('label-email').hidden = true;
+    document.getElementById('email').removeAttribute('required');
+    document.getElementById('email-block').hidden = true;
     let nodeNameSubmitButton = document.getElementById('register-btn').childNodes[0];
     nodeNameSubmitButton.nodeValue = "Sign In";
     let nodeNameForm = document.getElementById('form-name').childNodes[0];
@@ -15,17 +14,27 @@ function transformFormToSignIn() {
         resultQuery.remove();
     }
     
-    document.getElementById('link-register').hidden = true;
-    document.getElementById('link-sign-in').hidden = false;
+    document.getElementById('link-register').hidden = false;
+    document.getElementById('link-sign-in').hidden = true;
     document.getElementById('main-container').hidden = false;
 }
 
 function transformFormToRegister() {
     document.getElementById('type-form').setAttribute('type-form','register');
-    document.getElementById('email').hidden = false;
-    document.getElementById('label-email').hidden = false;
-    document.getElementById('link-register').hidden = false;
-    document.getElementById('link-sign-in').hidden = true;
+    document.getElementById('email').setAttribute('required', 'true');
+    let nodeNameSubmitButton = document.getElementById('register-btn').childNodes[0];
+    nodeNameSubmitButton.nodeValue = "Register";
+    let nodeNameForm = document.getElementById('form-name').childNodes[0];
+    nodeNameForm.nodeValue = "Register";
+    let nodeFormHeader = document.getElementById('form-header').childNodes[0];
+    nodeFormHeader.nodeValue = "Please fill in this form to create an account.";
+    let resultQuery = document.getElementById('result-query').childNodes[0];
+    if(resultQuery != undefined) {
+        resultQuery.remove();
+    }
+    document.getElementById('email-block').hidden = false;
+    document.getElementById('link-register').hidden = true;
+    document.getElementById('link-sign-in').hidden = false;
     document.getElementById('main-container').hidden = false;
 }
 

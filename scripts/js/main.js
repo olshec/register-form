@@ -78,8 +78,6 @@ function showResultQuery(responseText) {
             document.getElementById('link-register').hidden = true;
         }
         
-        
-        
     } else {
         let listError = response.listApplicationError;
         for(let i = 0; i < listError.length; i++) {

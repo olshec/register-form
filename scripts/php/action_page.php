@@ -9,44 +9,38 @@ session_start();
 include 'ResultModel.php';
 include 'DAO.php';
 
-
-
 // get the q parameter from URL
 $login = $_REQUEST["login"];
 $email = $_REQUEST["email"];
 $password = $_REQUEST["psw"];
 
 $myObj = new ResultModel($login, $email, $password);
-$myObj->setError(false);
-$myObj->setTextMessage('Register succesfull!');
+$myObj->setHasError(false);
 
 try {
     $dao = new DAO("localhost", 'postgres', '1111', 'db5');
     $pdo = $dao->getPDO();
-    
     $stmt = $pdo->query('SELECT name, email FROM users');
     while ($row = $stmt->fetch())
     {
         if ($row['name'] == $login) {
-            $myObj->setError(true);
-            $myObj->setTextError('This name already exists');
-            $myObj->setTypeError('name');
-        } else if ($row['email'] == $email) {
-            $myObj->setError(true);
-            $myObj->setTextError('This email already exists');
-            $myObj->setTypeError('email');
+            $myObj->setHasError(true);
+            $myObj->addError('This name already exists', 'name');
+        }
+        if ($row['email'] == $email) {
+            $myObj->setHasError(true);
+            $myObj->addError('This email already exists', 'email');
         }
     }
-    
+
+    if($myObj->getHasError() == false) {
+        $myObj->setTextMessage('Register succesfull!');
+    }
 } catch(PDOException $e) {
-    $myObj->setError(true);
-    $myObj->setTextError("Connection failed: " . $e->getMessage());
-    $myObj->setTypeError('connection');
+    $myObj->setHasError(true);
+    $myObj->addError("Connection failed: " . $e->getMessage(), 'connection');
 }
 
 $myJSON = json_encode($myObj);
 
 echo $myJSON;
-
-
-?>

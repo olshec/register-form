@@ -2,37 +2,37 @@
 
 namespace application;
 
+include 'ApplicationError.php';
+
 class ResultModel 
 {
     public $login;
     public $email;
     public $password;
     public $textMesage;
-    public $error;
-    public $textError;
-    public $typeError;
+    public $listApplicationError;
+    public $hasError;
 
     function __construct($login, $email, $password)
     {
         $this->setLogin($login);
         $this->setEmail($email);
         $this->setPassword($password);
+        $this->listApplicationError = [];
+    }
+    
+    public function addError($textError, $typeError) 
+    {
+        $this->listApplicationError[] = 
+            new ApplicationError($textError, $typeError);
     }
     
     /**
      * @return mixed
      */
-    public function getTypeError()
+    public function getHasError()
     {
-        return $this->typeError;
-    }
-    
-    /**
-     * @return mixed
-     */
-    public function getTextError()
-    {
-        return $this->textError;
+        return $this->hasError;
     }
     
     /**
@@ -41,14 +41,6 @@ class ResultModel
     public function getTextMesage()
     {
         return $this->textMesage;
-    }
-    
-    /**
-     * @return mixed
-     */
-    public function getError()
-    {
-        return $this->error;
     }
 
     /**
@@ -76,35 +68,11 @@ class ResultModel
     }
     
     /**
-     * @param mixed $typeError
-     */
-    public function setTypeError($typeError)
-    {
-        $this->typeError = $typeError;
-    }
-    
-    /**
      * @param mixed $textMesage
      */
     public function setTextMessage($textMesage)
     {
         $this->textMesage = $textMesage;
-    }
-    
-    /**
-     * @param mixed $textError
-     */
-    public function setTextError($textError)
-    {
-        $this->textError = $textError;
-    }
-    
-    /**
-     * @param mixed $error
-     */
-    public function setError($error)
-    {
-        $this->error = $error;
     }
     
     /**
@@ -131,6 +99,13 @@ class ResultModel
         $this->password = $password;
     }
 
-}
+    /**
+     * @param mixed $hasError
+     */
+    public function setHasError($hasError)
+    {
+        $this->hasError = $hasError;
+    }
 
-?>
+
+}

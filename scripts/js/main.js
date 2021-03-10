@@ -28,7 +28,7 @@ function showErrorForFieldName(textError) {
 
 function showResultRegister(responseText) {
     let response = JSON.parse(responseText);
-    if(response.error == false) {
+    if(response.hasError == false) {
         document.getElementById('main-container').hidden = true;
         let resultQuery = document.getElementById('result-register');
         //let node = document.createTextNode("Register succesfull!");
@@ -38,10 +38,14 @@ function showResultRegister(responseText) {
         resultQuery.innerText = response.textMesage;
         //resultQuery.appendChild(node);
     } else {
-        if(response.typeError == 'name') {
-            showErrorForFieldName(response.textError);
-        } else if(response.typeError == 'email') {
-            showErrorForFieldEmail(response.textError);
+        let listError = response.listApplicationError;
+        for(let i = 0; i < listError.length; i++) {
+            if(listError[i].typeError == 'name') {
+            showErrorForFieldName(listError[i].textError);
+            } 
+            if(listError[i].typeError == 'email') {
+                showErrorForFieldEmail(listError[i].textError);
+            }
         }
     }
 }

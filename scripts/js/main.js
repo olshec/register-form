@@ -6,14 +6,10 @@ function removeMessagesError() {
     if(nodeErrorEmail != undefined) {
         document.getElementById('error-email').removeChild(nodeErrorEmail);
     }
-    
     let nodeErrorLogin = document.getElementById('error-login').childNodes[0];
     if(nodeErrorLogin != undefined) {
         document.getElementById('error-login').removeChild(nodeErrorLogin);
     }
-    
-    /*document.getElementById('error-email').hidden = true;
-    document.getElementById('error-login').hidden = true;*/
 }
 
 function showErrorForFieldEmail(textError) {
@@ -30,13 +26,14 @@ function showResultRegister(responseText) {
     let response = JSON.parse(responseText);
     if(response.hasError == false) {
         document.getElementById('main-container').hidden = true;
-        let resultQuery = document.getElementById('result-register');
-        //let node = document.createTextNode("Register succesfull!");
         
-        //document.getElementById('main-container')
-        //document.body.innerHTML = "Register succesfull!<br>";
-        resultQuery.innerText = response.textMesage;
-        //resultQuery.appendChild(node);
+        let node = document.createTextNode("Register succesfull!");
+        let resultQuery = document.getElementById('result-register');
+        resultQuery.appendChild(node);
+        
+        /*let resultQuery = document.getElementById('result-register');
+        resultQuery.innerText = response.textMesage;*/
+        
     } else {
         let listError = response.listApplicationError;
         for(let i = 0; i < listError.length; i++) {

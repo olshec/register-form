@@ -72,6 +72,14 @@ function showResultQuery(responseText) {
         let node = document.createTextNode(response.textMessage);
         let resultQuery = document.getElementById('result-query');
         resultQuery.appendChild(node);
+        
+        let typeForm = document.getElementById('type-form').getAttribute('type-form');
+        if (typeForm == "sign-in") {
+            document.getElementById('link-register').hidden = true;
+        }
+        
+        
+        
     } else {
         let listError = response.listApplicationError;
         for(let i = 0; i < listError.length; i++) {

@@ -17,13 +17,13 @@ $typeForm = $_REQUEST["type-form"];
 $myObj = new ResultModel();
 $myObj->setHasError(false);
 
-if(!preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/',$password)) {
+if(!preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*.)\S*$/',$password)) {
     $myObj->setHasError(true);
     $myObj->addError('The password is not in the correct format', 'login');
     $myJSON = json_encode($myObj);
     echo $myJSON;
     exit();
-} else if (!preg_match("/^\S*(?=\S{5,})(?=\S*[a-zA-Z0-9])\S*$/",$login)) {
+} else if (!preg_match("/^\S*(?=\S{5,20})[a-zA-Z]+[0-9]*\S*$/",$login)) {
     $myObj->setHasError(true);
     $myObj->addError('The login is not in the correct format', 'login');
     $myJSON = json_encode($myObj);

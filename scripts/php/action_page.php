@@ -17,7 +17,7 @@ $typeForm = $_REQUEST["type-form"];
 $myObj = new ResultModel();
 $myObj->setHasError(false);
 
-if(strlen($password) < 6 || !preg_match("/^[a-zA-Z0-9]*$/",$password)) {
+if(!preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/',$password)) {
     $myObj->setHasError(true);
     $myObj->addError('The password is not in the correct format', 'login');
     $myJSON = json_encode($myObj);
@@ -30,6 +30,7 @@ if(strlen($password) < 6 || !preg_match("/^[a-zA-Z0-9]*$/",$password)) {
     echo $myJSON;
     exit();
 } 
+
 if($typeForm == 'register') {
     $email = $_REQUEST["email"];
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

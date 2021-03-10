@@ -36,6 +36,11 @@ if($typeForm == 'register') {
         }
         
         if($myObj->getHasError() == false) {
+            $sql = "INSERT INTO users (name, email, password) 
+                VALUES (:name, :email, :password)";
+            $stmt= $pdo->prepare($sql);
+            $stmt->execute([$login, $email, $password]);
+            
             $myObj->setTextMessage('Register succesfull!');
         }
     } catch(PDOException $e) {
@@ -46,9 +51,14 @@ if($typeForm == 'register') {
     try {
         $dao = new DAO("localhost", 'postgres', '1111', 'db5');
         $pdo = $dao->getPDO();
-        
-        $stmt = $pdo->query('SELECT name, password FROM users');
+        $sql = 'SELECT name, password
+                FROM users
+                WHERE name=:name AND password=:password';
+        $stmt= $pdo->prepare($sql);
+        $stmt->execute([$login, $password]);
         $row = $stmt->fetch();
+        echo $row;
+        exit;
         if ($row['name'] == $login && $row['password'] == $password) {
             $myObj->setTextMessage('You are in your account!');
         } else {

@@ -23,7 +23,7 @@ if(!preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/',$passwo
     $myJSON = json_encode($myObj);
     echo $myJSON;
     exit();
-} else if (strlen($login) < 5 || !preg_match("/^[a-zA-Z0-9]*$/",$login)) {
+} else if (!preg_match("/^\S*(?=\S{5,})(?=\S*[a-zA-Z0-9])\S*$/",$login)) {
     $myObj->setHasError(true);
     $myObj->addError('The login is not in the correct format', 'login');
     $myJSON = json_encode($myObj);

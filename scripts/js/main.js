@@ -1,7 +1,34 @@
 
+
+
+function removeMessagesError() {
+    let nodeErrorEmail = document.getElementById('error-email').childNodes[0];
+    if(nodeErrorEmail != undefined) {
+        document.getElementById('error-email').removeChild(nodeErrorEmail);
+    }
+    
+    let nodeErrorLogin = document.getElementById('error-login').childNodes[0];
+    if(nodeErrorLogin != undefined) {
+        document.getElementById('error-login').removeChild(nodeErrorLogin);
+    }
+    
+    /*document.getElementById('error-email').hidden = true;
+    document.getElementById('error-login').hidden = true;*/
+}
+
+function showErrorForFieldEmail(textError) {
+    let node = document.createTextNode(textError);
+    document.getElementById('error-email').appendChild(node);
+}
+
+function showErrorForFieldName(textError) {
+    let node = document.createTextNode(textError);
+    document.getElementById('error-login').appendChild(node);
+}
+
 function showResultRegister(responseText) {
     let response = JSON.parse(responseText);
-    if(response.error === false) {
+    if(response.error == false) {
         document.getElementById('main-container').hidden = true;
         let resultQuery = document.getElementById('result-register');
         //let node = document.createTextNode("Register succesfull!");
@@ -11,7 +38,11 @@ function showResultRegister(responseText) {
         resultQuery.innerText = response.textMesage;
         //resultQuery.appendChild(node);
     } else {
-        
+        if(response.typeError == 'name') {
+            showErrorForFieldName(response.textError);
+        } else if(response.typeError == 'email') {
+            showErrorForFieldEmail(response.textError);
+        }
     }
 }
 
@@ -38,6 +69,7 @@ function afterPageLoad() {
 	let form = document.getElementById('main-form');
 	form.addEventListener('submit', function(event) {
             event.preventDefault();
+            removeMessagesError();
             sendQuery();
     });
 }

@@ -30,16 +30,18 @@ try {
         if ($row['name'] == $login) {
             $myObj->setError(true);
             $myObj->setTextError('This name already exists');
-        } 
-        if ($row['email'] == $email) {
+            $myObj->setTypeError('name');
+        } else if ($row['email'] == $email) {
             $myObj->setError(true);
             $myObj->setTextError('This email already exists');
+            $myObj->setTypeError('email');
         }
     }
     
 } catch(PDOException $e) {
     $myObj->setError(true);
     $myObj->setTextError("Connection failed: " . $e->getMessage());
+    $myObj->setTypeError('connection');
 }
 
 $myJSON = json_encode($myObj);

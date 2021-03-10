@@ -17,6 +17,14 @@ $typeForm = $_REQUEST["type-form"];
 $myObj = new ResultModel();
 $myObj->setHasError(false);
 
+if(strlen($password)<6) {
+    $myObj->setHasError(true);
+    $myObj->addError('The password is not in the correct format', 'login');
+    $myJSON = json_encode($myObj);
+    echo $myJSON;
+    exit();
+}
+
 if($typeForm == 'register') {
     $email = $_REQUEST["email"];
     try {
@@ -36,8 +44,8 @@ if($typeForm == 'register') {
         }
         
         if($myObj->getHasError() == false) {
-            $sql = "INSERT INTO users (name, email, password) 
-                VALUES (:name, :email, :password)";
+            $sql = "INSERT INTO users (name, email, password)
+            VALUES (:name, :email, :password)";
             $stmt= $pdo->prepare($sql);
             $stmt->execute([$login, $email, $password]);
             
@@ -47,6 +55,7 @@ if($typeForm == 'register') {
         $myObj->setHasError(true);
         $myObj->addError("Connection failed: " . $e->getMessage(), 'connection');
     }
+    
 } else if($typeForm == 'sign-in') {
     try {
         $dao = new DAO("localhost", 'postgres', '1111', 'db5');
@@ -69,9 +78,7 @@ if($typeForm == 'register') {
     }
 }
 
-
-
-
 $myJSON = json_encode($myObj);
 
 echo $myJSON;
+

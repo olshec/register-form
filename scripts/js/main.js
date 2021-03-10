@@ -1,5 +1,24 @@
 
-
+function transformFormToSignIn() {
+    document.getElementById('type-form').setAttribute('type-form','sign-in');
+    document.getElementById('email').remove();
+    document.getElementById('label-email').remove();
+    let nodeNameSubmitButton = document.getElementById('register-btn').childNodes[0];
+    nodeNameSubmitButton.nodeValue = "Sign In";
+    let nodeNameForm = document.getElementById('form-name').childNodes[0];
+    nodeNameForm.nodeValue = "Sign In";
+    let nodeFormHeader = document.getElementById('form-header').childNodes[0];
+    nodeFormHeader.nodeValue = "Please fill in this form to log into your account.";
+    let resultQuery = document.getElementById('result-query').childNodes[0];
+    if(resultQuery != undefined) {
+        resultQuery.remove();
+    }
+    let containerSignIn = document.getElementsByClassName("signin")[0];
+    containerSignIn.innerHTML = '<p>Haven\'t an account?'+ 
+        '<a href="#" id="register"> Register</a></p>';
+    document.getElementById('main-container').hidden = false;
+    
+}
 
 function removeMessagesError() {
     let nodeErrorEmail = document.getElementById('error-email').childNodes[0];
@@ -22,12 +41,18 @@ function showErrorForFieldLogin(textError) {
     document.getElementById('error-login').appendChild(node);
 }
 
-function showResultRegister(responseText) {
+function showErrorForWrongSingIn(textError) {
+    let node = document.createTextNode(textError);
+    let resultQuery = document.getElementById('error-login');
+    resultQuery.appendChild(node);
+}
+
+function showResultQuery(responseText) {
     let response = JSON.parse(responseText);
     if(response.hasError == false) {
         document.getElementById('main-container').hidden = true;
-        let node = document.createTextNode("Register succesfull!");
-        let resultQuery = document.getElementById('result-register');
+        let node = document.createTextNode(response.textMessage);
+        let resultQuery = document.getElementById('result-query');
         resultQuery.appendChild(node);
     } else {
         let listError = response.listApplicationError;
@@ -38,26 +63,42 @@ function showResultRegister(responseText) {
             if(listError[i].typeError == 'email') {
                 showErrorForFieldEmail(listError[i].textError);
             }
+            if(listError[i].typeError == 'sign-in') {
+                showErrorForWrongSingIn(listError[i].textError);
+            }
         }
     }
 }
 
-function sendQuery() {
-	let login = document.getElementById('login').value;
-	let email = document.getElementById('email').value;
-	let psw = document.getElementById('psw').value;
-	let pswRepeat = document.getElementById('psw-repeat').value;
-	
-	let xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			showResultRegister(this.responseText);
-	    }
-    };
-    let url = "scripts/php/action_page.php?email=" + email + '&login=' + 
-        login + '&psw=' + psw + '&psw-repeat=' + pswRepeat;
+function sendQuery(url) {
+    let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                showResultQuery(this.responseText);
+            }
+        };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
+}
+
+function sendForm() {
+    let typeForm = document.getElementById('type-form').getAttribute('type-form');
+    
+    let login = document.getElementById('login').value;
+    let psw = document.getElementById('psw').value;
+    let pswRepeat = document.getElementById('psw-repeat').value;
+        
+    if (typeForm == 'register') {
+        let email = document.getElementById('email').value;
+        let url = 'scripts/php/action_page.php?email=' + email + '&login=' + 
+            login + '&psw=' + psw + '&type-form=' + 'register';
+        sendQuery(url);
+    } else  if (typeForm == 'sign-in') {
+        let url = 'scripts/php/action_page.php?login=' + 
+            login + '&psw=' + psw + '&type-form=' + 'sign-in';
+        sendQuery(url);
+    }
+
 }
 
 
@@ -66,8 +107,15 @@ function afterPageLoad() {
 	form.addEventListener('submit', function(event) {
             event.preventDefault();
             removeMessagesError();
-            sendQuery();
+            sendForm();
     });
+    
+    let signIn = document.getElementById('sign-in');
+    signIn.addEventListener('click', function(event) {
+            event.preventDefault();
+            transformFormToSignIn();
+    });
+    
 }
 
 afterPageLoad();

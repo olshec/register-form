@@ -6,7 +6,7 @@ include 'ApplicationError.php';
 
 class ResultModel 
 {
-    public $textMesage;
+    public $textMessage;
     public $listApplicationError;
     public $hasError;
 
@@ -32,9 +32,9 @@ class ResultModel
     /**
      * @return mixed
      */
-    public function getTextMesage()
+    public function getTextMessage()
     {
-        return $this->textMesage;
+        return $this->textMessage;
     }
 
     /**
@@ -42,7 +42,7 @@ class ResultModel
      */
     public function setTextMessage($textMesage)
     {
-        $this->textMesage = $textMesage;
+        $this->textMessage = $textMesage;
     }
 
     /**

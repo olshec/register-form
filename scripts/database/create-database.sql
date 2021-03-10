@@ -5,6 +5,6 @@ CREATE TABLE users (
 );
 
 INSERT INTO users VALUES 
-	('user1', 'user1@gmail.com', 'qwerty'),
-	('user2', 'user2@gmail.com', '12345'),
-	('user3', 'user3@gmail.com', '33333');
+	('user1', 'user1@gmail.com', '11112222Aa'),
+	('user2', 'user2@gmail.com', '12345678Zx'),
+	('user3', 'user3@gmail.com', '11111111XXc');

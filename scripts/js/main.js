@@ -3,6 +3,8 @@ function transformFormToSignIn() {
     document.getElementById('type-form').setAttribute('type-form','sign-in');
     document.getElementById('email').removeAttribute('required');
     document.getElementById('email-block').hidden = true;
+    document.getElementById('psw-repeat').removeAttribute('required');
+    document.getElementById('psw-repeat-block').hidden = true;
     let nodeNameSubmitButton = document.getElementById('register-btn').childNodes[0];
     nodeNameSubmitButton.nodeValue = "Sign In";
     let nodeNameForm = document.getElementById('form-name').childNodes[0];
@@ -22,6 +24,9 @@ function transformFormToSignIn() {
 function transformFormToRegister() {
     document.getElementById('type-form').setAttribute('type-form','register');
     document.getElementById('email').setAttribute('required', 'true');
+    document.getElementById('email-block').hidden = false;
+    document.getElementById('psw-repeat').setAttribute('required', 'true');
+    document.getElementById('psw-repeat-block').hidden = false;
     let nodeNameSubmitButton = document.getElementById('register-btn').childNodes[0];
     nodeNameSubmitButton.nodeValue = "Register";
     let nodeNameForm = document.getElementById('form-name').childNodes[0];
@@ -32,7 +37,7 @@ function transformFormToRegister() {
     if(resultQuery != undefined) {
         resultQuery.remove();
     }
-    document.getElementById('email-block').hidden = false;
+    
     document.getElementById('link-register').hidden = true;
     document.getElementById('link-sign-in').hidden = false;
     document.getElementById('main-container').hidden = false;
@@ -111,18 +116,16 @@ function sendQuery(url) {
 
 function sendForm() {
     let typeForm = document.getElementById('type-form').getAttribute('type-form');
-    
     let login = document.getElementById('login').value;
     let psw = document.getElementById('psw').value;
-    let pswRepeat = document.getElementById('psw-repeat').value;
-    
-    if (psw != pswRepeat) {
-        let node = document.createTextNode('Password mismatch');
-        document.getElementById('error-password').appendChild(node);
-        return;
-    }
-        
+
     if (typeForm == 'register') {
+        let pswRepeat = document.getElementById('psw-repeat').value;
+        if (psw != pswRepeat) {
+            let node = document.createTextNode('Password mismatch');
+            document.getElementById('error-password').appendChild(node);
+            return;
+        }
         let email = document.getElementById('email').value;
         let url = 'scripts/php/action_page.php?email=' + email + '&login=' + 
             login + '&psw=' + psw + '&type-form=' + 'register';

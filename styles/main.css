@@ -17,7 +17,7 @@ body {
 input[type=text], input[type=password] {
 	width: 100%;
 	padding: 15px;
-	margin: 5px 0 22px 0;
+	margin: 5px 0 2px 0;
 	display: inline-block;
 	border: none;
 	background: #f1f1f1;
@@ -71,7 +71,11 @@ a {
     text-align: center;
 }
 
-
+.error-message {
+    margin: 2px 0 22px 0;
+    border: none;
+    color: #ef2929;
+}
 
 
 

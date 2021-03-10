@@ -35,9 +35,7 @@ function transformFormToRegister() {
     document.getElementById('email-block').hidden = false;
     document.getElementById('link-register').hidden = true;
     document.getElementById('link-sign-in').hidden = false;
-
     document.getElementById('main-container').hidden = false;
-    
 }
 
 function removeMessagesError() {
@@ -130,12 +128,17 @@ function afterPageLoad() {
             sendForm();
     });
     
-    let signIn = document.getElementById('sign-in');
-    signIn.addEventListener('click', function(event) {
+    let signInLink = document.getElementById('link-sign-in');
+    signInLink.addEventListener('click', function(event) {
             event.preventDefault();
             transformFormToSignIn();
     });
     
+    let registerLink = document.getElementById('link-register');
+    registerLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            transformFormToRegister();
+    })
 }
 
 afterPageLoad();

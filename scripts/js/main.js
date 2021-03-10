@@ -1,9 +1,8 @@
 
 function transformFormToSignIn() {
     document.getElementById('type-form').setAttribute('type-form','sign-in');
-    let em = document.getElementById('email');
-    document.getElementById('email').hidden = true;
-    document.getElementById('label-email').hidden = true;
+    document.getElementById('email').remove();
+    document.getElementById('label-email').remove();
     let nodeNameSubmitButton = document.getElementById('register-btn').childNodes[0];
     nodeNameSubmitButton.nodeValue = "Sign In";
     let nodeNameForm = document.getElementById('form-name').childNodes[0];
@@ -14,19 +13,11 @@ function transformFormToSignIn() {
     if(resultQuery != undefined) {
         resultQuery.remove();
     }
+    let containerSignIn = document.getElementsByClassName("signin")[0];
+    containerSignIn.innerHTML = '<p>Haven\'t an account?'+ 
+        '<a href="#" id="register"> Register</a></p>';
+    document.getElementById('main-container').hidden = false;
     
-    document.getElementById('link-register').hidden = true;
-    document.getElementById('link-sign-in').hidden = false;
-    document.getElementById('main-container').hidden = false;
-}
-
-function transformFormToRegister() {
-    document.getElementById('type-form').setAttribute('type-form','register');
-    document.getElementById('email').hidden = false;
-    document.getElementById('label-email').hidden = false;
-    document.getElementById('link-register').hidden = false;
-    document.getElementById('link-sign-in').hidden = true;
-    document.getElementById('main-container').hidden = false;
 }
 
 function removeMessagesError() {
@@ -112,24 +103,19 @@ function sendForm() {
 
 
 function afterPageLoad() {
-	let form = document.getElementById('main-form');
-	form.addEventListener('submit', function(event) {
+    let form = document.getElementById('main-form');
+    form.addEventListener('submit', function(event) {
             event.preventDefault();
             removeMessagesError();
             sendForm();
     });
     
-    let signInLink = document.getElementById('link-sign-in');
-    signInLink.addEventListener('click', function(event) {
+    let signIn = document.getElementById('sign-in');
+    signIn.addEventListener('click', function(event) {
             event.preventDefault();
             transformFormToSignIn();
     });
     
-    let registerLink = document.getElementById('link-register');
-    registerLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            transformFormToRegister();
-    })
 }
 
 afterPageLoad();

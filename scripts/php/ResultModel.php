@@ -6,18 +6,12 @@ include 'ApplicationError.php';
 
 class ResultModel 
 {
-    public $login;
-    public $email;
-    public $password;
     public $textMesage;
     public $listApplicationError;
     public $hasError;
 
-    function __construct($login, $email, $password)
+    function __construct()
     {
-        $this->setLogin($login);
-        $this->setEmail($email);
-        $this->setPassword($password);
         $this->listApplicationError = [];
     }
     
@@ -44,59 +38,11 @@ class ResultModel
     }
 
     /**
-     * @return mixed
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-    
-    /**
      * @param mixed $textMesage
      */
     public function setTextMessage($textMesage)
     {
         $this->textMesage = $textMesage;
-    }
-    
-    /**
-     * @param mixed $login
-     */
-    public function setLogin($login)
-    {
-        $this->login = $login;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
     }
 
     /**
@@ -106,6 +52,5 @@ class ResultModel
     {
         $this->hasError = $hasError;
     }
-
-
 }
+

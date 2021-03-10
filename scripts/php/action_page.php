@@ -14,7 +14,7 @@ $login = $_REQUEST["login"];
 $email = $_REQUEST["email"];
 $password = $_REQUEST["psw"];
 
-$myObj = new ResultModel($login, $email, $password);
+$myObj = new ResultModel();
 $myObj->setHasError(false);
 
 try {

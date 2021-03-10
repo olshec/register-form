@@ -147,12 +147,14 @@ function afterPageLoad() {
     let signInLink = document.getElementById('link-sign-in');
     signInLink.addEventListener('click', function(event) {
             event.preventDefault();
+            removeMessagesError();
             transformFormToSignIn();
     });
     
     let registerLink = document.getElementById('link-register');
     registerLink.addEventListener('click', function(event) {
             event.preventDefault();
+            removeMessagesError();
             transformFormToRegister();
     })
 }

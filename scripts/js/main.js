@@ -17,7 +17,7 @@ function showErrorForFieldEmail(textError) {
     document.getElementById('error-email').appendChild(node);
 }
 
-function showErrorForFieldName(textError) {
+function showErrorForFieldLogin(textError) {
     let node = document.createTextNode(textError);
     document.getElementById('error-login').appendChild(node);
 }
@@ -26,19 +26,14 @@ function showResultRegister(responseText) {
     let response = JSON.parse(responseText);
     if(response.hasError == false) {
         document.getElementById('main-container').hidden = true;
-        
         let node = document.createTextNode("Register succesfull!");
         let resultQuery = document.getElementById('result-register');
         resultQuery.appendChild(node);
-        
-        /*let resultQuery = document.getElementById('result-register');
-        resultQuery.innerText = response.textMesage;*/
-        
     } else {
         let listError = response.listApplicationError;
         for(let i = 0; i < listError.length; i++) {
-            if(listError[i].typeError == 'name') {
-            showErrorForFieldName(listError[i].textError);
+            if(listError[i].typeError == 'login') {
+            showErrorForFieldLogin(listError[i].textError);
             } 
             if(listError[i].typeError == 'email') {
                 showErrorForFieldEmail(listError[i].textError);

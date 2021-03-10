@@ -25,7 +25,7 @@ try {
     {
         if ($row['name'] == $login) {
             $myObj->setHasError(true);
-            $myObj->addError('This name already exists', 'name');
+            $myObj->addError('This login already exists', 'login');
         }
         if ($row['email'] == $email) {
             $myObj->setHasError(true);

@@ -47,6 +47,10 @@ function removeMessagesError() {
     if(nodeErrorLogin != undefined) {
         document.getElementById('error-login').removeChild(nodeErrorLogin);
     }
+    let nodeErrorPassword = document.getElementById('error-password').childNodes[0];
+    if(nodeErrorPassword != undefined) {
+        document.getElementById('error-password').removeChild(nodeErrorPassword);
+    }
 }
 
 function showErrorForFieldEmail(textError) {
@@ -111,6 +115,12 @@ function sendForm() {
     let login = document.getElementById('login').value;
     let psw = document.getElementById('psw').value;
     let pswRepeat = document.getElementById('psw-repeat').value;
+    
+    if (psw != pswRepeat) {
+        let node = document.createTextNode('Password mismatch');
+        document.getElementById('error-password').appendChild(node);
+        return;
+    }
         
     if (typeForm == 'register') {
         let email = document.getElementById('email').value;

@@ -57,8 +57,6 @@ if($typeForm == 'register') {
         $stmt= $pdo->prepare($sql);
         $stmt->execute([$login, $password]);
         $row = $stmt->fetch();
-        echo $row;
-        exit;
         if ($row['name'] == $login && $row['password'] == $password) {
             $myObj->setTextMessage('You are in your account!');
         } else {
